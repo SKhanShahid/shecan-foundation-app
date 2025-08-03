@@ -34,7 +34,7 @@ const DashboardPage = () => {
                         Authorization: `Bearer ${user.token}`,
                     },
                 };
-                const response = await axios.get('http://localhost:5000/api/interns/dashboard', config);
+                const response = await axios.get('https://shecan-foundation-app.onrender.com', config);
                 setIntern(response.data);
                 setLoading(false);
             } catch (error) {

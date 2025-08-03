@@ -21,7 +21,7 @@ const DonationPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/donations', formData);
+      const response = await axios.post('https://shecan-foundation-app.onrender.com', formData);
       setMessage('Thank you for your donation!');
       console.log('Donation successful:', response.data);
     } catch (error) {

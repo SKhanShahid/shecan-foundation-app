@@ -8,7 +8,7 @@ const LeaderboardPage = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/interns/leaderboard');
+        const response = await axios.get('https://shecan-foundation-app.onrender.com');
         setLeaderboard(response.data);
         setLoading(false);
       } catch (error) {

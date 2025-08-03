@@ -27,7 +27,7 @@ const LoginPage = () => {
         if (isLogin) {
             // Login logic
             try {
-                const response = await axios.post('http://localhost:5000/api/interns/login', {
+                const response = await axios.post('https://shecan-foundation-app.onrender.com', {
                     email,
                     password,
                 });
@@ -39,7 +39,7 @@ const LoginPage = () => {
         } else {
             // Signup logic
             try {
-                const response = await axios.post('http://localhost:5000/api/interns', {
+                const response = await axios.post('https://shecan-foundation-app.onrender.com', {
                     name,
                     email,
                     password,
