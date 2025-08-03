@@ -24,7 +24,7 @@ const DashboardPage = () => {
         const fetchDashboardData = async () => {
             const user = JSON.parse(localStorage.getItem('user'));
             if (!user) {
-                navigate('/');
+                navigate('/login');
                 return;
             }
 
@@ -34,13 +34,13 @@ const DashboardPage = () => {
                         Authorization: `Bearer ${user.token}`,
                     },
                 };
-                const response = await axios.get('https://shecan-foundation-app.onrender.com', config);
+                const response = await axios.get('https://shecan-foundation-app.onrender.com/api/interns/dashboard', config);
                 setIntern(response.data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching dashboard data:', error);
                 localStorage.removeItem('user');
-                navigate('/');
+                navigate('/login');
             }
         };
 
@@ -61,7 +61,7 @@ const DashboardPage = () => {
             <h3>Your Referral Code: {intern.referralCode}</h3>
             <p>Total Amount Raised: ₹{intern.totalAmountRaised}</p>
             <p>Total Donors: {intern.totalDonors}</p>
-            <p>Badges: {intern.badges.join(', ')}</p>
+            <p>Badges: {intern.badges && intern.badges.join(', ')}</p>
             <div style={{ marginTop: '2rem' }}>
                 <button onClick={onCopyLink} style={{ marginRight: '1rem', padding: '10px 20px' }}>
                     Copy Donation Link
