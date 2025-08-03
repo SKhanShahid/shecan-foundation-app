@@ -37,7 +37,7 @@ app.use('/api/donations', require('./routes/donationRoutes'));
 // Use the admin routes for any requests to /api/admins
 app.use('/api/admins', require('./routes/adminRoutes'));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
