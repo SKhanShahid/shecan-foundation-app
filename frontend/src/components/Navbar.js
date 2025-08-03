@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn }) => {
     const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem('user'));
 
     const onLogout = () => {
         localStorage.removeItem('user');
-        navigate('/');
+        navigate('/login');
     };
 
     return (
@@ -16,13 +15,13 @@ const Navbar = () => {
                 <Link to='/'>SheCan Foundation</Link>
             </div>
             <div>
-                {user ? (
+                {isLoggedIn ? (
                     <>
                         <Link to='/dashboard' style={{ marginRight: '1rem' }}>Dashboard</Link>
                         <button onClick={onLogout}>Logout</button>
                     </>
                 ) : (
-                    <Link to='/' style={{ marginRight: '1rem' }}>Login</Link>
+                    <Link to='/login' style={{ marginRight: '1rem' }}>Login</Link>
                 )}
                 <Link to='/leaderboard' style={{ marginRight: '1rem' }}>Leaderboard</Link>
                 <Link to='/donate'>Donate</Link>

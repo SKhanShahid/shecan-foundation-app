@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const LoginPage = () => {
+const LoginPage = ({ onLogin }) => {
     const [isLogin, setIsLogin] = useState(true);
     const [formData, setFormData] = useState({
         name: '',
@@ -29,18 +29,20 @@ const LoginPage = () => {
             try {
                 const response = await axios.post(API_URL + 'login', { email, password });
                 localStorage.setItem('user', JSON.stringify(response.data));
+                onLogin();
                 navigate('/dashboard');
             } catch (error) {
-                console.error('Login failed:', error.response.data.message);
+                console.error('Login failed:', error.response?.data?.message);
             }
         } else {
             // Signup logic
             try {
                 const response = await axios.post(API_URL, { name, email, password });
                 localStorage.setItem('user', JSON.stringify(response.data));
+                onLogin();
                 navigate('/dashboard');
             } catch (error) {
-                console.error('Signup failed:', error.response.data.message);
+                console.error('Signup failed:', error.response?.data?.message);
             }
         }
     };
@@ -80,7 +82,7 @@ const LoginPage = () => {
                 </button>
             </form>
             <p onClick={() => setIsLogin(!isLogin)} style={{ cursor: 'pointer', marginTop: '20px' }}>
-                    {isLogin ? 'Need an account? Sign Up' : 'Already have an account? Login'}
+                {isLogin ? 'Need an account? Sign Up' : 'Already have an account? Login'}
             </p>
         </div>
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import LandingPage from './pages/LandingPage';
@@ -9,16 +9,25 @@ import LeaderboardPage from './pages/LeaderboardPage';
 import './App.css';
 
 function App() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.token) {
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, []);
 
     return (
         <Router>
             <div className="App">
-                <Navbar />
+                <Navbar isLoggedIn={isLoggedIn} />
                 <Routes>
-                    <Route path='/' element={user ? <Navigate to='/dashboard' /> : <LandingPage />} />
-                    <Route path='/login' element={<LoginPage />} />
-                    <Route path='/dashboard' element={user ? <DashboardPage /> : <Navigate to='/login' />} />
+                    <Route path='/' element={isLoggedIn ? <Navigate to="/dashboard" /> : <LandingPage />} />
+                    <Route path='/login' element={<LoginPage onLogin={() => setIsLoggedIn(true)} />} />
+                    <Route path='/dashboard' element={isLoggedIn ? <DashboardPage /> : <Navigate to="/login" />} />
                     <Route path='/donate' element={<DonationPage />} />
                     <Route path='/leaderboard' element={<LeaderboardPage />} />
                 </Routes>
